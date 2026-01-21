@@ -113,4 +113,52 @@
 
   <div class="floating" id="hearts"></div>
   <div class="floating" id="confetti"></div>
-  <div class="floating" id="sparkles"></di
+  <div class="floating" id="sparkles"></div>
+  <div class="floating" id="cats"></div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const message = document.getElementById("message");
+
+    // NO button teleports inside the screen, cannot be touched
+    noBtn.addEventListener('mousemove', () => {
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+      noBtn.style.left = x + 'px';
+      noBtn.style.top = y + 'px';
+    });
+
+    function sayYes() {
+      message.innerHTML = "YAYYY!! 💕 Best decision ever 😍 — Love, Josh Daz 💖";
+      spawnFloating('💖', 50, 'hearts');
+      spawnFloating('🎉', 50, 'confetti');
+      spawnFloating('✨', 40, 'sparkles');
+      spawnCatImage();
+    }
+
+    function spawnFloating(char, count, containerId) {
+      const container = document.getElementById(containerId);
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('div');
+        el.textContent = char;
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        container.appendChild(el);
+        setTimeout(() => el.remove(), 5000);
+      }
+    }
+
+    function spawnCatImage() {
+      const container = document.getElementById('cats');
+      const img = document.createElement('img');
+      img.src = 'cat1.jpg'; // Use an actual file in your repo instead of base64
+      img.className = 'cat-img';
+      img.style.left = '50%';
+      img.style.top = '30%';
+      img.style.transform = 'translate(-50%, -50%)';
+      container.appendChild(img);
+      setTimeout(() => img.remove(), 5000);
+    }
+  </script>
+</body>
+</html>
