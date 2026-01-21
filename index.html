@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: 'Comic Sans MS', cursive, sans-serif;
-      background: linear-gradient(135deg, #ffd1dc, #ffe4e1); /* softer cute colors */
+      background: linear-gradient(135deg, #ffeef2, #fff0f5);
       text-align: center;
       padding: 50px;
       color: #333;
@@ -17,12 +17,12 @@
     h1 {
       font-size: 2.2rem;
       margin-bottom: 20px;
-      color: #ff6699;
-      text-shadow: 1px 1px 3px rgba(255, 102, 153,0.4);
+      color: #ff4d85;
+      text-shadow: 1px 1px 3px rgba(255,77,133,0.4);
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.9);
       padding: 30px;
       border-radius: 20px;
       max-width: 400px;
@@ -46,21 +46,24 @@
     }
 
     #yesBtn {
-      background: #ff6699;
+      background: #ff4d85;
       color: white;
     }
 
     #yesBtn:hover {
-      background: #ff3366;
+      background: #ff1f5c;
       transform: scale(1.05);
     }
 
     #noBtn {
-      background: #ffb3c6;
-      color: #ff3366;
+      background: #ffb3c9;
+      color: #ff1f5c;
       font-size: 18px;
       padding: 15px 25px;
       position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
 
     #message {
@@ -85,6 +88,11 @@
       animation: float 5s linear infinite;
     }
 
+    .cat-gif {
+      width: 50px;
+      height: 50px;
+    }
+
     @keyframes float {
       from { transform: translateY(100vh); opacity: 1; }
       to { transform: translateY(-10vh); opacity: 0; }
@@ -107,16 +115,11 @@
   <div class="floating" id="sparkles"></div>
   <div class="floating" id="cats"></div>
 
-  <audio id="bgMusic" autoplay loop>
-    <source src="https://cdn.jsdelivr.net/gh/user/music/mata-sa-mata.mp3" type="audio/mpeg">
-  </audio>
-
   <script>
     const noBtn = document.getElementById("noBtn");
-    const yesBtn = document.getElementById("yesBtn");
     const message = document.getElementById("message");
 
-    // NO button teleport on hover to make it impossible to click
+    // NO button teleports to random position on mouseover, cannot be touched
     noBtn.addEventListener('mousemove', () => {
       const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
       const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
@@ -125,11 +128,11 @@
     });
 
     function sayYes() {
-      message.innerHTML = "YAYYY!! 💕 best decision of your life ever :3 — Love, Josh Daz 💖";
-      spawnFloating('💖', 100, 'hearts');
+      message.innerHTML = "YAYYY!! 💕 Best decision ever 😍 — Love, Josh Daz 💖";
+      spawnFloating('💖', 50, 'hearts');
       spawnFloating('🎉', 50, 'confetti');
       spawnFloating('✨', 40, 'sparkles');
-      spawnFloating('🐱', 20, 'cats');
+      spawnCats();
     }
 
     function spawnFloating(char, count, containerId) {
@@ -141,6 +144,23 @@
         el.style.animationDuration = (Math.random() * 3 + 2) + 's';
         container.appendChild(el);
         setTimeout(() => el.remove(), 5000);
+      }
+    }
+
+    function spawnCats() {
+      const container = document.getElementById('cats');
+      const catUrls = [
+        'https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif',
+        'https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif',
+        'https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif'
+      ];
+      for (let i = 0; i < 10; i++) {
+        const img = document.createElement('img');
+        img.src = catUrls[Math.floor(Math.random() * catUrls.length)];
+        img.className = 'cat-gif';
+        img.style.left = Math.random() * 100 + 'vw';
+        container.appendChild(img);
+        setTimeout(() => img.remove(), 5000);
       }
     }
   </script>
