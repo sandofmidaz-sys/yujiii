@@ -114,12 +114,17 @@ button {
 const noBtn = document.getElementById("noBtn");
 const message = document.getElementById("message");
 
-// Teleport NO button safely inside screen
+// NO button teleports safely inside the viewport
 noBtn.addEventListener('mouseenter', () => {
-  const maxX = window.innerWidth - noBtn.offsetWidth;
-  const maxY = window.innerHeight - noBtn.offsetHeight;
+  const btnWidth = noBtn.offsetWidth;
+  const btnHeight = noBtn.offsetHeight;
+
+  const maxX = window.innerWidth - btnWidth;
+  const maxY = window.innerHeight - btnHeight;
+
   const x = Math.random() * maxX;
   const y = Math.random() * maxY;
+
   noBtn.style.left = x + 'px';
   noBtn.style.top = y + 'px';
 });
