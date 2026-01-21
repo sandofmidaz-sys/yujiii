@@ -85,6 +85,7 @@ button {
 
 .floating div {
   position: absolute;
+  font-size: 2.5rem; /* Bigger emojis */
   animation: float 5s linear infinite;
 }
 
@@ -119,11 +120,13 @@ noBtn.addEventListener('mouseenter', () => {
   const btnWidth = noBtn.offsetWidth;
   const btnHeight = noBtn.offsetHeight;
 
-  const maxX = window.innerWidth - btnWidth;
-  const maxY = window.innerHeight - btnHeight;
+  const maxX = window.innerWidth - btnWidth / 2;
+  const maxY = window.innerHeight - btnHeight / 2;
+  const minX = btnWidth / 2;
+  const minY = btnHeight / 2;
 
-  const x = Math.random() * maxX;
-  const y = Math.random() * maxY;
+  const x = Math.random() * (maxX - minX) + minX;
+  const y = Math.random() * (maxY - minY) + minY;
 
   noBtn.style.left = x + 'px';
   noBtn.style.top = y + 'px';
