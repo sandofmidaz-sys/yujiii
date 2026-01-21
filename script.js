@@ -2,22 +2,35 @@ const noButton = document.getElementById("noButton");
 const yesButton = document.getElementById("yesButton");
 const celebration = document.getElementById("celebration");
 
-// NO button teleport logic (bulletproof)
-noButton.addEventListener('mouseenter', () => {
-    const btnWidth = noButton.offsetWidth;
-    const btnHeight = noButton.offsetHeight;
+const dodgeDistance = 150; // how far button moves away
 
-    const margin = 10; // margin from window edges
+// NO button dodges cursor
+noButton.addEventListener('mousemove', (e) => {
+    const rect = noButton.getBoundingClientRect();
+    const cursorX = e.clientX;
+    const cursorY = e.clientY;
 
-    // calculate max X/Y positions inside viewport minus button size
-    const maxX = window.innerWidth - btnWidth - margin;
-    const maxY = window.innerHeight - btnHeight - margin;
+    const btnCenterX = rect.left + rect.width / 2;
+    const btnCenterY = rect.top + rect.height / 2;
 
-    const x = margin + Math.random() * maxX;
-    const y = margin + Math.random() * maxY;
+    // Calculate distance from cursor to button center
+    const dx = btnCenterX - cursorX;
+    const dy = btnCenterY - cursorY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
 
-    noButton.style.left = x + 'px';
-    noButton.style.top = y + 'px';
+    // Only move if cursor is close
+    if (distance < 100) {
+        let newX = rect.left + dx / distance * dodgeDistance;
+        let newY = rect.top + dy / distance * dodgeDistance;
+
+        // Clamp to viewport
+        newX = Math.max(10, Math.min(window.innerWidth - rect.width - 10, newX));
+        newY = Math.max(10, Math.min(window.innerHeight - rect.height - 10, newY));
+
+        noButton.style.position = 'fixed';
+        noButton.style.left = newX + 'px';
+        noButton.style.top = newY + 'px';
+    }
 });
 
 // YES button action
@@ -36,13 +49,11 @@ function spawnFloating(emoji, count) {
         el.style.position = 'fixed';
         el.style.left = Math.random() * window.innerWidth + 'px';
         el.style.top = Math.random() * window.innerHeight + 'px';
-        el.style.fontSize = (Math.random() * 30 + 20) + 'px'; // bigger emojis
+        el.style.fontSize = (Math.random() * 30 + 20) + 'px';
         el.style.pointerEvents = 'none';
         el.style.transition = 'all 3s linear';
         document.body.appendChild(el);
 
-        setTimeout(() => {
-            el.remove();
-        }, 3000);
+        setTimeout(() => el.remove(), 3000);
     }
 }
