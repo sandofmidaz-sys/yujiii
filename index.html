@@ -83,15 +83,9 @@
       overflow: hidden;
     }
 
-    .floating div, .floating img {
+    .floating div {
       position: absolute;
       animation: float 5s linear infinite;
-    }
-
-    .cat-img {
-      width: 120px;
-      height: auto;
-      border-radius: 20px;
     }
 
     @keyframes float {
@@ -114,7 +108,6 @@
   <div class="floating" id="hearts"></div>
   <div class="floating" id="confetti"></div>
   <div class="floating" id="sparkles"></div>
-  <div class="floating" id="cats"></div>
 
   <script>
     const noBtn = document.getElementById("noBtn");
@@ -133,7 +126,6 @@
       spawnFloating('💖', 50, 'hearts');
       spawnFloating('🎉', 50, 'confetti');
       spawnFloating('✨', 40, 'sparkles');
-      spawnCatImage();
     }
 
     function spawnFloating(char, count, containerId) {
@@ -146,18 +138,6 @@
         container.appendChild(el);
         setTimeout(() => el.remove(), 5000);
       }
-    }
-
-    function spawnCatImage() {
-      const container = document.getElementById('cats');
-      const img = document.createElement('img');
-      img.src = 'cat1.jpg'; // Use an actual file in your repo instead of base64
-      img.className = 'cat-img';
-      img.style.left = '50%';
-      img.style.top = '30%';
-      img.style.transform = 'translate(-50%, -50%)';
-      container.appendChild(img);
-      setTimeout(() => img.remove(), 5000);
     }
   </script>
 </body>
